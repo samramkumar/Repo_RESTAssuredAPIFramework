@@ -26,17 +26,19 @@ public class TC_AmazonAPI_Automation {
 		RestAssured.baseURI="http://localhost:9190/product/getProducts/";
 		RequestSpecification httpRequest = RestAssured.given();
 		
+		//purchase iphone6 mobile, wings of fire book , Dell laptop using the API
 		purchasePage pp = new purchasePage();
 		pp.purchasemobile(httpRequest,"IPhone6",purchasedetails,purchaseprice);
 		pp.purchasebook(httpRequest,"Wings of Fire",purchasedetails,purchaseprice);
 		pp.purchaselaptops(httpRequest,"Dell Inspiron",purchasedetails,purchaseprice);
+		//display the products purchased with price
 		System.out.println(purchasedetails.get("ProductsPurchased"));
 		System.out.println(purchaseprice.get("TotalPrice"));
 		
 		//POST API
 		RestAssured.baseURI="http://localhost:9193/product/completetheorder";
 		RequestSpecification httpRequest1 = RestAssured.given();
-		
+		//submit the order to save in DB, using POST API
 		completeOrderPage co = new completeOrderPage();
 		co.submitorder(httpRequest1,purchasedetails.get("ProductsPurchased"),purchaseprice.get("TotalPrice"));
 	}
